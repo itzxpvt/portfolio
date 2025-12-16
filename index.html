@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aagha Fazal</title>
+  <!-- Favicon / tab icon -->
+  <link rel="icon" href="fazal_logo.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="https://picsum.photos/180/180" />
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+     :root {
+     --primary-color: #000;
+     --text-color: #1d1b1b;
+     --text-gray: #323232;
+     --bg-gray: #f9fafb;
+     --bg-main: #fff;
+     --white: #fff;
+      /* header/footer background and shadow (light mode defaults) */
+      --header-footer-bg: rgba(255,255,255,0.9);
+      --header-footer-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+     --transition: 0.3s ease;
+ }
+
+ /* Dark mode variables */
+ [data-theme="dark"] {
+     --primary-color: #fff;
+     --text-color: #f1f1f1;
+     --text-gray: #b3b3b3;
+     --bg-gray: #1a1a1a;
+  --bg-main: #121212;
+   --white: #121212;
+  /* header/footer background and shadow for dark mode -> use a slightly lighter dark-gray so header/footer are not pure black */
+  --header-footer-bg: rgba(26,26,26,0.95); /* roughly #1a1a1a with slight opacity */
+  --header-footer-shadow: 0 1px 3px rgba(255,255,255,0.02);
+ }
+
+/* header/footer dark-mode colors controlled by CSS variables --header-footer-bg and --header-footer-shadow */
+
+/* Ensure desktop nav links are readable and have a visible hover in dark mode */
+[data-theme="dark"] .desktop-nav a {
+  color: var(--text-color);
+}
+[data-theme="dark"] .desktop-nav a:hover {
+  color: var(--primary-color);
+  /* light translucent highlight suitable for dark background */
+  background-color: rgba(255,255,255,0.06);
+}
+
+/* Ensure mobile nav hover is visible in dark mode too */
+[data-theme="dark"] .mobile-nav {
+  background: rgba(0,0,0,0.9);
+}
+[data-theme="dark"] .mobile-nav a {
+  color: var(--text-color);
+}
+[data-theme="dark"] .mobile-nav a:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-color);
+}
+
+/* Make the mobile menu button (hamburger) have a white square background in dark mode */
+[data-theme="dark"] .mobile-menu-btn {
+  /* keep the button dark/transparent in dark mode, but make only the icon
+     lines white (no visible border or filled background) */
+  background: transparent !important;
+  color: #fff !important; /* makes the lucide icon lines white */
+  border: none !important; /* remove white outline */
+  box-shadow: none !important;
+  border-radius: 6px !important;
+}
+[data-theme="dark"] .mobile-menu-btn i {
+  color: inherit !important;
+}
+
+/* Make carousel arrow icons white in dark mode */
+[data-theme="dark"] .carousel-btn {
+  color: #fff !important; /* lucide svgs use currentColor for stroke */
+  /* darker gray background for better contrast in dark mode */
+  background: #2b2b2b !important;
+  border: none !important;
+}
+[data-theme="dark"] .carousel-btn i {
+  color: inherit !important;
+}
+
+/* Social link squares: make border and subtle fill visible in dark mode */
+[data-theme="dark"] .contact-item.social-links .value a {
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.02) !important;
+  color: var(--text-color) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset !important;
+}
+[data-theme="dark"] .contact-item.social-links .value a:hover {
+  background: var(--text-color) !important;
+  color: var(--bg-main) !important;
+  border-color: var(--text-color) !important;
+  transform: translateY(-2px);
+}
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ html {
+     scroll-behavior: smooth;
+ }
+
+ .blog-posts.hfeed.container {
+     padding: 0;
+ }
+
+ body {
+     font-family: system-ui, -apple-system, sans-serif;
+     line-height: 1.5;
+    color: var(--text-color);
+   /* Make the page background match the site dark background so no white gap appears
+     (fixes the white frame/strip visible above the footer). */
+   background: var(--bg-main);
+ }
+
+ .container {
+     width: 100%;
+     margin: 0 auto;
+     padding: 0 1rem;
+  background-color: var(--bg-main);
+ }
+
+ h2 {
+     font-size: 3rem;
+     font-weight: bold;
+     line-height: normal;
+     text-align: center;
+     margin-bottom: 2rem;
+ }
+
+ /* Header */
+ .header {
+     position: fixed;
+     width: 100%;
+   background: var(--header-footer-bg);
+   backdrop-filter: blur(8px);
+   z-index: 50;
+   box-shadow: var(--header-footer-shadow);
+ }
+
+ .header-content {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1rem 0;
+ }
+
+ .logo {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+ }
+
+.logo span {
+     font-weight: bold;
+     font-size: 1.25rem;
+}
+
+/* Logo image (replace with your icon.png) */
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: inline-block;
+}
+
+ .desktop-nav {
+     display: none;
+     margin-left: 2rem;
+ }
+
+ .mobile-menu-btn {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 0.5rem;
+ }
+
+ .mobile-nav {
+     display: none;
+     background: var(--white);
+     border-top: 1px solid #eee;
+ }
+
+ .mobile-nav.active {
+     display: block;
+ }
+
+ .mobile-nav a {
+     display: block;
+     padding: 0.75rem 4rem;
+     color: var(--text-color);
+     text-decoration: none;
+ }
+
+ .mobile-nav a:hover {
+     background: var(--bg-gray);
+ }
+
+ @media (min-width: 768px) {
+     .mobile-menu-btn {
+         display: none;
+     }
+
+     .desktop-nav {
+         display: inline-flex;
+         gap: 2rem;
+         align-items: center;
+     }
+
+     .desktop-nav a {
+         color: var(--text-color);
+         text-decoration: none;
+         transition: all 0.3s ease;
+         font-weight: normal;
+         font-size: 0.9rem;
+         position: relative;
+         padding: 4px 8px;
+         border-radius: 4px;
+     }
+
+     .desktop-nav a:hover {
+         color: var(--primary-color);
+         background-color: rgba(0, 0, 0, 0.05);
+     }
+ }
+
+ @media (max-width: 768px) {
+     .header-content {
+         padding: 0.5rem;
+     }
+
+     .header-right {
+         display: flex;
+         align-items: center;
+         gap: 1rem;
+     }
+ }
+
+ /* Theme toggle button */
+ .theme-toggle {
+     background: none;
+     border: none;
+     padding: 0.5rem;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: var(--text-color);
+     border-radius: 50%;
+     transition: var(--transition);
+ }
+
+ .theme-toggle:hover {
+     background-color: var(--bg-gray);
+ }
+
+ /* Hero Section */
+ .hero {
+     min-height: 100vh;
+     padding-top: 5rem;
+     display: flex;
+     align-items: center;
+ }
+
+ .hero-content {
+     display: grid;
+     gap: 3rem;
+     align-items: center;
+ }
+
+ .hero h1 {
+     font-size: 2.3rem;
+     line-height: 1.2;
+     margin-bottom: 1.5rem;
+ }
+
+ .hero p {
+     font-size: 1.25rem;
+     color: var(--text-gray);
+     margin-bottom: 2rem;
+ }
+
+ .cta-button {
+     display: inline-flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding: 0.75rem 1.5rem;
+     background: var(--primary-color);
+     color: var(--white);
+     text-decoration: none;
+     border-radius: 9999px;
+     border: 1px solid black;
+     transition: var(--transition);
+ }
+
+ .cta-button:hover {
+     color: var(--primary-color);
+     background: var(--white);
+     border: 1px solid black;
+ }
+
+ .hero-image {
+     position: relative;
+     border-radius: 0 1rem 10rem 2rem;
+     overflow: hidden;
+     transition: var(--transition);
+ }
+
+ .hero-image:hover {
+     transform: scale(1.02);
+ }
+
+ .hero-image img {
+     width: 100%;
+     height: auto;
+     display: block;
+ }
+
+ @media (min-width: 768px) {
+     .hero-content {
+         grid-template-columns: repeat(2, 1fr);
+     }
+
+     .hero h1 {
+         font-size: 4rem;
+     }
+ }
+
+ /* About Section */
+ .about {
+     padding: 5rem 0;
+     background: var(--bg-gray);
+ }
+
+ .about-content {
+     display: grid;
+     gap: 3rem;
+ }
+
+ .achievements-grid {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     gap: 1.5rem;
+     margin-top: 1.5rem;
+ }
+
+ .achievement {
+     display: flex;
+     align-items: center;
+     gap: 0.75rem;
+ }
+
+ .key-achievements ul {
+     list-style: none;
+ }
+
+ .key-achievements li {
+     display: flex;
+     align-items: start;
+     margin-bottom: 1rem;
+ }
+
+ .key-achievements span {
+     width: 1.5rem;
+     height: 1.5rem;
+     background: var(--primary-color);
+     color: var(--white);
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 0.875rem;
+     margin-right: 0.75rem;
+ }
+
+ .key-achievements h3 {
+     padding-bottom: 1rem;
+ }
+
+ svg.lucide.lucide-award,
+ svg.lucide.lucide-briefcase {
+     width: 40px;
+     height: 24px;
+ }
+
+ svg.lucide.lucide-graduation-cap {
+     width: 24px;
+     height: 24px;
+ }
+
+ @media (min-width: 768px) {
+     .about-content {
+         grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+ /* Expertise Section */
+ .expertise {
+     padding: 5rem 0;
+ }
+
+ .skills-grid {
+     display: grid;
+     gap: 2rem;
+ }
+
+ .skill-card {
+     background: var(--white);
+     padding: 1.5rem;
+     border-radius: 0.75rem;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     transition: var(--transition);
+ }
+
+ .skill-card:hover {
+     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+ }
+
+ .skill-header {
+     display: flex;
+     align-items: center;
+     gap: 0.75rem;
+     margin-bottom: 1rem;
+ }
+
+ .skill-header h3 {
+     font-size: 1.25rem;
+ }
+
+ .skill-bar {
+     width: 100%;
+     height: 0.625rem;
+     background: #eee;
+     border-radius: 9999px;
+     overflow: hidden;
+     margin-bottom: 0.5rem;
+ }
+
+ .skill-progress {
+     height: 100%;
+     background: var(--primary-color);
+     border-radius: 9999px;
+     transition: width 1s ease-out;
+ }
+
+ @media (min-width: 768px) {
+     .skills-grid {
+         grid-template-columns: repeat(3, 1fr);
+     }
+ }
+
+ /* Projects Section */
+ .projects {
+     padding: 5rem 0;
+     background: var(--bg-gray);
+ }
+
+ .projects-carousel {
+     position: relative;
+ }
+
+ .projects-container {
+     display: flex;
+     gap: 1.5rem;
+     overflow-x: auto;
+     scroll-behavior: smooth;
+     scrollbar-width: none;
+     padding: 1rem 0;
+ }
+
+ .projects-container::-webkit-scrollbar {
+     display: none;
+ }
+
+ .project-card {
+     min-width: 300px;
+     background: var(--white);
+     border-radius: 0.75rem;
+     overflow: hidden;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+ }
+
+ .project-image {
+     position: relative;
+     overflow: hidden;
+ }
+
+ .project-image img {
+     width: 100%;
+     height: 12rem;
+     object-fit: cover;
+     transition: var(--transition);
+ }
+
+/* Ensure videos match image sizing and behavior */
+.project-image video {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  display: block;
+}
+
+ .project-card:hover .project-image img {
+     transform: scale(1.1);
+ }
+
+ .project-overlay {
+     position: absolute;
+     inset: 0;
+     background: rgba(0, 0, 0, 0.5);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     opacity: 0;
+     transition: var(--transition);
+ }
+
+ .project-card:hover .project-overlay {
+     opacity: 1;
+ }
+
+ .view-project {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     padding: 0.5rem 1rem;
+     background: var(--white);
+     color: var(--primary-color);
+     border: none;
+     border-radius: 9999px;
+     cursor: pointer;
+ }
+
+ .project-info {
+     padding: 1.5rem;
+ }
+
+ .carousel-btn {
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     background: var(--white);
+     border: none;
+     border-radius: 50%;
+     width: 2.5rem;
+     height: 2.5rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     z-index: 10;
+ }
+
+ .carousel-btn.prev {
+     left: 0;
+ }
+
+ .carousel-btn.next {
+     right: 0;
+ }
+
+ @media (min-width: 768px) {
+     .project-card {
+         min-width: 400px;
+     }
+ }
+
+ /* Modal Styles */
+ .modal-overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.8);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     z-index: 1000;
+     opacity: 0;
+     visibility: hidden;
+     transition: all var(--transition);
+ }
+
+ .modal-overlay.active {
+     opacity: 1;
+     visibility: visible;
+ }
+
+ .modal-container {
+     background: var(--white);
+     border-radius: 1rem;
+     max-width: 90vw;
+     max-height: 90vh;
+     width: 600px;
+     position: relative;
+     transform: scale(0.8);
+     transition: transform var(--transition);
+ }
+
+ .modal-overlay.active .modal-container {
+     transform: scale(1);
+ }
+
+ .modal-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 1.5rem;
+     border-bottom: 1px solid #eee;
+ }
+
+ .modal-title {
+     font-size: 1.5rem;
+     font-weight: bold;
+     margin: 0;
+ }
+
+ .modal-close {
+     background: none;
+     border: none;
+     cursor: pointer;
+     padding: 0.5rem;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: var(--transition);
+ }
+
+ .modal-close:hover {
+     background: var(--bg-gray);
+ }
+
+ .modal-body {
+     padding: 1.5rem;
+     max-height: 70vh;
+     overflow-y: auto;
+ }
+
+ .modal-images {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+ }
+
+ .modal-image {
+     width: 100%;
+     border-radius: 0.5rem;
+     overflow: hidden;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     transition: var(--transition);
+ }
+
+ .modal-image:hover {
+     transform: scale(1.02);
+ }
+
+ .modal-image img {
+     width: 100%;
+     height: auto;
+     display: block;
+ }
+
+.modal-image video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+ .modal-image-title {
+     padding: 1rem;
+     background: var(--bg-gray);
+     font-weight: 500;
+     text-align: center;
+ }
+
+ /* Scrollbar Styles for Modal */
+ .modal-body::-webkit-scrollbar {
+     width: 8px;
+ }
+
+ .modal-body::-webkit-scrollbar-track {
+     background: #f1f1f1;
+     border-radius: 10px;
+ }
+
+ .modal-body::-webkit-scrollbar-thumb {
+     background: #ccc;
+     border-radius: 10px;
+ }
+
+ .modal-body::-webkit-scrollbar-thumb:hover {
+     background: #999;
+ }
+
+ @media (max-width: 768px) {
+     .modal-container {
+         width: 95vw;
+         max-height: 85vh;
+     }
+
+     .modal-header {
+         padding: 1rem;
+     }
+
+     .modal-body {
+         padding: 1rem;
+         max-height: 65vh;
+     }
+
+     .modal-title {
+         font-size: 1.25rem;
+     }
+ }
+
+ /* Contact Section (compact layout to remove large blank gaps) */
+ .contact {
+   /* moderate spacing so contact appears neither cramped nor loose */
+   padding-top: 1.75rem;
+   padding-bottom: 1rem;
+ }
+
+ .contact-content {
+   display: grid;
+   /* moderate gap between image and contact info */
+   gap: 1.5rem;
+   /* center the contact-info vertically relative to the image so content
+      starts roughly in the middle instead of at the top */
+   align-items: center;
+ }
+
+ .contact-image {
+     position: relative;
+     border-radius: 10rem 0 10rem 0;
+     overflow: hidden;
+     max-width: 100%;
+ }
+
+ .contact-image img {
+     width: 100%;
+     height: auto;
+     display: block;
+     transition: var(--transition);
+ }
+
+ .contact-image:hover img {
+     transform: scale(1.02);
+ }
+
+ /* Make the right column compact: stack items tightly */
+ .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem; /* larger vertical gap between contact sections */
+  /* small padding for comfortable text spacing */
+  padding-left: 0.5rem;
+  align-items: stretch;
+ }
+
+ /* Each contact row uses a tight inline layout */
+ .contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* comfortable gap between icon and text */
+  margin: 0; /* ensure no extra margins create blank space */
+}
+
+ /* Social row: remove left icon column and keep links compact */
+ .contact-item.social-links {
+  display: block; /* block so label + value stack naturally */
+}
+
+ .contact-item.social-links > div {
+  margin: 0;
+}
+
+ .icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem;
+  background: var(--bg-gray);
+  border-radius: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  transition: var(--transition);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+}
+
+ .contact-item:hover .icon-wrapper {
+     background: var(--primary-color);
+     color: var(--white);
+ }
+
+.label {
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.125rem 0; /* small bottom margin for comfortable spacing */
+}
+
+.value {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+ @media (min-width: 768px) {
+     .contact-content {
+         grid-template-columns: repeat(2, 1fr);
+     }
+ }
+
+ /* Footer */
+ .footer {
+  /* Use header/footer variables to match header in both light and dark modes */
+  background: var(--header-footer-bg);
+  color: var(--text-color);
+  padding: 1rem 0;
+  position: relative;
+  /* Add subtle shadow like the header */
+  border-top: none;
+  box-shadow: var(--header-footer-shadow);
+ }
+
+/* Ensure the inner container inside the footer doesn't use the page container's
+   background (which can be light). Make it transparent so the footer's black
+   background shows edge-to-edge. */
+.footer .container {
+  background: transparent !important;
+  padding-left: 1rem; /* keep original spacing */
+  padding-right: 1rem;
+}
+
+ .footer-content {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+.footer-info .copyright {
+  /* muted color that reads on light or dark footer backgrounds */
+  color: var(--text-gray);
+ }
+
+/* Make footer copyright link match footer colors and remove underline */
+.footer-info .copyright a {
+  color: inherit;
+  text-decoration: none;
+}
+.footer-info .copyright a:hover {
+  text-decoration: underline;
+}
+
+/* Contact value links: inherit text color and no underline, underline on hover */
+.contact-info .value a {
+  color: inherit;
+  text-decoration: none;
+}
+.contact-info .value a:hover {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+/* Social links inside contact */
+.contact-item.social-links .value {
+  display: flex;
+  gap: 0.5rem; /* comfortable spacing between social buttons */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.contact-item.social-links .value a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* slightly larger social squares for better touch/visual spacing */
+  width: 2.75rem;
+  height: 2.75rem;
+  /* match icon-wrapper corner radius */
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), transform 0.12s ease;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.contact-item.social-links .value a:hover {
+  transform: translateY(-2px);
+}
+
+.contact-item.social-links .value a:hover {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.contact-item.social-links .label {
+  margin-bottom: 0.25rem;
+}
+
+ #scroll-top {
+     position: fixed;
+     bottom: 2rem;
+     right: 2rem;
+     background: var(--primary-color);
+     color: var(--white);
+     width: 3rem;
+     height: 3rem;
+     border: none;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+     transition: var(--transition);
+     opacity: 0;
+     visibility: hidden;
+ }
+
+ #scroll-top.visible {
+     opacity: 1;
+     visibility: visible;
+ }
+
+ #scroll-top:hover {
+     background: #333;
+ }
+
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <!-- Logo image using a placeholder -->
+            <img src="fazal_logo.png" alt="Fazal" class="logo-img" />
+            <span>Fazal</span>
+            <nav class="desktop-nav">
+              <a href="#home">Home</a>
+              <a href="#about">About</a>
+              <a href="#expertise">Expertise</a>
+              <a href="#projects">Projects</a>
+              <a href="#contact">Contact</a>
+            </nav>
+          </div>
+          <div class="header-right">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+              <i data-lucide="sun"></i>
+            </button>
+            <button class="mobile-menu-btn" aria-label="Toggle menu">
+              <i data-lucide="menu"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <nav class="mobile-nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>
+              Hi, I'm Aagha Fazal
+              <br />
+              <span class="text-gray">
+                <!-- I'm a <span id="typed-text"></span> -->
+                <span id="typed-text"></span>
+              </span>
+            </h1>
+            <p>
+              I am a B.Tech student in Computer Science and Engineering with a specialization in Artificial Intelligence, with hands-on experience in building Telegram bots and a strong interest in automation and problem-solving. Before starting my engineering studies, I spent over a year assisting in my family’s business, which helped me develop practical thinking, adaptability, and decision-making skills. I enjoy learning how systems work, exploring new technologies, and finding smart, efficient ways to solve real-world challenges while continuously improving my technical foundation..
+            </p>
+            <a href="#contact" class="cta-button">
+              Give Me a Chance
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+          <div class="hero-image">
+            <img
+              src="fazal_hero.jpg"
+              alt="Profile Image"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <h2>About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              B.Tech CSE (AI) student with experience in Telegram bot development, business operations assistance, and hands-on problem solving. Passionate about artificial intelligence, automation, and real-world applications of technology.
+            </p>
+            <div class="achievements-grid">
+              <div class="achievement">
+                <i data-lucide="briefcase"></i>
+                <span>1+ Year Business Operations Experience</span>
+              </div>
+              <div class="achievement">
+                <i data-lucide="graduation-cap"></i>
+                <span>Aspiring AI Engineer</span>
+              </div>
+            </div>
+          </div>
+          <div class="key-achievements">
+            <h3>Key Achievements</h3>
+            <ul>
+              <li><span>1</span>Built multiple Telegram automation bots</li>
+              <li><span>2</span>One year of hands-on business operations experience</li>
+              <li><span>3</span>Strong practical and problem-solving mindset</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="expertise">
+      <div class="container">
+        <h2>Expertise</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-header">
+              <i data-lucide="file-video-camera"></i>
+              <h3>Tele Bot Dev</h3>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+            <span>70% proficiency</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-header">
+              <i data-lucide="paintbrush"></i>
+              <h3>Problem Solving & Automation</h3>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+            <span>78% proficiency</span>
+          </div>
+          <div class="skill-card">
+            <div class="skill-header">
+              <i data-lucide="codesandbox"></i>
+              <h3>Business Operations & Decision Support</h3>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 40%"></div>
+            </div>
+            <span>80% proficiency</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2>Projects</h2>
+        <div class="projects-carousel">
+          <button class="carousel-btn prev">
+            <i data-lucide="arrow-left"></i>
+          </button>
+          <div class="projects-container">
+            <div class="project-card">
+              <div class="project-image">
+          <!-- Embedded video with poster image -->
+          <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=7" preload="none" playsinline muted loop>
+            Your browser does not support the video tag.
+          </video>
+                  <div class="project-overlay">
+                    <button class="view-project" data-project="brand">
+                      View Project
+                      <i data-lucide="chart-no-axes-gantt"></i>
+                    </button>
+                  </div>
+                </div>
+              <div class="project-info">
+                <h3>Project Title One</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <!-- Lazy video: poster shows until the video is loaded. data-src set but not loaded until in-view -->
+                <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=8" preload="none" playsinline muted loop>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="project-overlay">
+                  <button class="view-project" data-project="mobile">
+                    View Project
+                    <i data-lucide="chart-no-axes-gantt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Project Title Two</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=9" preload="none" playsinline muted loop>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="project-overlay">
+                  <button class="view-project" data-project="website">
+                    View Project
+                    <i data-lucide="chart-no-axes-gantt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Project Title Three</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=10" preload="none" playsinline muted loop>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="project-overlay">
+                  <button class="view-project" data-project="digital">
+                    View Project
+                    <i data-lucide="chart-no-axes-gantt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Project Title Four</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=11" preload="none" playsinline muted loop>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="project-overlay">
+                  <button class="view-project" data-project="logo">
+                    View Project
+                    <i data-lucide="chart-no-axes-gantt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Project Title Five</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-image">
+                <video data-src="https://www.w3schools.com/html/mov_bbb.mp4" poster="https://picsum.photos/800/600?random=12" preload="none" playsinline muted loop>
+                  Your browser does not support the video tag.
+                </video>
+                <div class="project-overlay">
+                  <button class="view-project" data-project="print">
+                    View Project
+                    <i data-lucide="chart-no-axes-gantt"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Project Title Six</h3>
+                <p>Adding Soon</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn next">
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Modal -->
+    <div class="modal-overlay" id="projectModal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Project Gallery</h3>
+          <button class="modal-close" id="closeModal">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-images" id="modalImages">
+            <!-- Images will be dynamically loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Give a Shot</h2>
+        <div class="contact-content">
+          <div class="contact-image">
+            <img
+              src="fazal_Contact.jpg"
+              alt="Contact Image"
+            />
+          </div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="icon-wrapper">
+                <i data-lucide="mail"></i>
+              </div>
+              <div>
+                <p class="label">Email</p>
+                <p class="value"><a href="mailto:your.email@example.com">aaghafazal09@gmail.com</a></p>
+              </div>
+            </div>
+
+            <!-- <div class="contact-item">
+              <div class="icon-wrapper">
+                <i data-lucide="phone"></i>
+              </div>
+              <div>
+                <p class="label">Phone</p>
+                <p class="value"><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon-wrapper">
+                <i data-lucide="globe"></i>
+              </div>
+              <div>
+                <p class="label">Website</p>
+                <p class="value"><a href="https://www.example.com" target="_blank" rel="noopener">www.example.com</a></p>
+              </div>
+            </div> -->
+
+            <div class="contact-item">
+              <div class="icon-wrapper">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div>
+                <p class="label">Location</p>
+                <p class="value"><a href="https://maps.app.goo.gl/uG3SKpRB1PKgCTMA6" target="_blank" rel="noopener">Kishanganj, Bihar, India</a></p>
+              </div>
+            </div>
+            <!-- Social Links -->
+            <div class="contact-item social-links">
+              <div>
+                <p class="label">Social</p>
+                <p class="value">
+                  <!-- Replace the placeholders (yourusername) with real handles -->
+                  <a href="https://instagram.com/pen.pencil.xyz" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><i data-lucide="instagram"></i></a>
+                  <!-- <a href="https://facebook.com/yourusername" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><i data-lucide="facebook"></i></a> -->
+                  <a href="https://x.com/aaghafazal" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)"><i data-lucide="x"></i></a>
+                  <a href="https://www.linkedin.com/in/aaghafazal" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                  <!-- <a href="https://www.youtube.com/@yourusername" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><i data-lucide="youtube"></i></a> -->
+                  <!-- <a href="https://wa.me/919876543210" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><i data-lucide="message-circle"></i></a> -->
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <p class="copyright">
+              <a href="https://fazal.info" target="_blank" rel="noopener">© <span id="year"></span> Fazal. All rights reserved.</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <button id="scroll-top" aria-label="Scroll to top">
+        <i data-lucide="arrow-up"></i>
+      </button>
+    </footer>
+
+    <Script>
+    // Sample project data
+const projectData = {
+  brand: {
+    title: "Brand Identity Design",
+    media: [
+            {
+                url: "https://picsum.photos/800/600?random=3",
+                title: "Logo Design Concept",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=4",
+                title: "Brand Color Palette",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=5",
+                title: "Business Card Design",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=6",
+                title: "Brand Guidelines",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=7",
+                title: "Brand Application",
+            },
+        ],
+    },
+  mobile: {
+    title: "Mobile App UI Design",
+    media: [
+            {
+                url: "https://picsum.photos/800/600?random=8",
+                title: "App Onboarding Screen",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=9",
+                title: "Dashboard Interface",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=10",
+                title: "User Profile Screen",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=11",
+                title: "Settings Interface",
+            },
+        ],
+    },
+  website: {
+    title: "Website Design Portfolio",
+    media: [
+            {
+                url: "https://picsum.photos/800/600?random=12",
+                title: "Homepage Design",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=13",
+                title: "Product Page Layout",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=14",
+                title: "Contact Form Design",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=15",
+                title: "About Page Layout",
+            },
+            {
+                url: "https://picsum.photos/800/600?random=16",
+                title: "Blog Section Design",
+            },
+        ],
+    },
+  digital: {
+    title: "Digital Marketing Designs",
+    media: [
+            {
+                url: "#",
+                title: "Social Media Post Design",
+            },
+            {
+                url: "#",
+                title: "Instagram Story Template",
+            },
+            {
+                url: "#",
+                title: "Facebook Ad Design",
+            },
+            {
+                url: "#",
+                title: "Email Campaign Design",
+            },
+        ],
+    },
+  logo: {
+    title: "Logo Design Collection",
+    media: [
+            {
+                url: "#",
+                title: "Tech Startup Logo",
+            },
+            {
+                url: "#",
+                title: "Restaurant Logo Design",
+            },
+            {
+                url: "#",
+                title: "Fashion Brand Logo",
+            },
+            {
+                url: "#",
+                title: "Corporate Identity",
+            },
+            {
+                url: "#",
+                title: "Minimalist Logo Design",
+            },
+        ],
+    },
+  print: {
+    title: "Print Design Projects",
+    media: [
+            {
+                url: "#",
+                title: "Business Card Collection",
+            },
+            {
+                url: "#",
+                title: "Brochure Design",
+            },
+            {
+                url: "#",
+                title: "Flyer Design",
+            },
+            {
+                url: "#",
+                title: "Poster Design",
+            },
+        ],
+    },
+};
+
+// Initialize Typed.js
+const typed = new Typed("#typed-text", {
+    strings: ["CSE (AI) Student", "Tele Bot Dev", "Practical Problem Solver", "Business-Minded Thinker"],
+    typeSpeed: 50,
+    backSpeed: 50,
+    loop: true,
+});
+
+// Mobile Menu Toggle
+const menuBtn = document.querySelector(".mobile-menu-btn");
+const mobileNav = document.querySelector(".mobile-nav");
+const menuIcon = menuBtn.querySelector('[data-lucide="menu"]');
+
+menuBtn.addEventListener("click", () => {
+    mobileNav.classList.toggle("active");
+    const isOpen = mobileNav.classList.contains("active");
+    menuIcon.setAttribute("data-lucide", isOpen ? "x" : "menu");
+    lucide.createIcons();
+});
+
+// Projects Carousel
+const projectsContainer = document.querySelector(".projects-container");
+const prevBtn = document.querySelector(".carousel-btn.prev");
+const nextBtn = document.querySelector(".carousel-btn.next");
+
+prevBtn.addEventListener("click", () => {
+    projectsContainer.scrollBy({ left: -400, behavior: "smooth" });
+});
+
+nextBtn.addEventListener("click", () => {
+    projectsContainer.scrollBy({ left: 400, behavior: "smooth" });
+});
+
+// Modal Functionality
+const modal = document.getElementById("projectModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalImages = document.getElementById("modalImages");
+const closeModal = document.getElementById("closeModal");
+
+// Open modal function
+function openModal(projectType) {
+    const project = projectData[projectType];
+    if (!project) return;
+
+    modalTitle.textContent = project.title;
+
+    // Clear previous media
+    modalImages.innerHTML = "";
+
+    // Add new media (images or videos)
+  project.media.forEach((image) => {
+    const imageDiv = document.createElement("div");
+    imageDiv.className = "modal-image";
+
+    // If the URL points to an MP4, render a video element with controls
+    if (typeof image.url === 'string' && /\.mp4(\?|$)/i.test(image.url)) {
+      imageDiv.innerHTML = `
+        <video controls preload="metadata" playsinline>
+          <source src="${image.url}" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="modal-image-title">${image.title}</div>
+      `;
+    } else {
+      // Default to image
+      imageDiv.innerHTML = `
+        <img src="${image.url}" alt="${image.title}" />
+        <div class="modal-image-title">${image.title}</div>
+      `;
+    }
+
+    modalImages.appendChild(imageDiv);
+  });
+
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+// Close modal function
+function closeModalFunction() {
+    modal.classList.remove("active");
+    document.body.style.overflow = "auto";
+}
+
+// Event listeners for modal
+closeModal.addEventListener("click", closeModalFunction);
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        closeModalFunction();
+    }
+});
+
+// Event listeners for view project buttons
+document.querySelectorAll(".view-project").forEach((button) => {
+    button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const projectType = button.getAttribute("data-project");
+        openModal(projectType);
+    });
+});
+
+// Escape key to close modal
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+        closeModalFunction();
+    }
+});
+
+// Scroll to Top Button
+const scrollTopBtn = document.getElementById("scroll-top");
+
+window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 500) {
+        scrollTopBtn.classList.add("visible");
+    } else {
+        scrollTopBtn.classList.remove("visible");
+    }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Update Copyright Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Theme Toggle Functionality
+const themeToggle = document.getElementById('theme-toggle');
+// don't keep a long-lived reference to an <i> element because lucide.createIcons()
+// replaces placeholders with <svg> nodes. We'll create a fresh placeholder each time
+// we need to change the icon so updates are immediate.
+
+// Check for saved theme preference, otherwise use system preference
+const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+// Apply theme
+const setTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    // Decide which icon to show: dark -> sun, light -> moon
+    const iconName = theme === 'dark' ? 'sun' : 'moon';
+    // Update accessible label to reflect the action the button will perform
+    themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    // Replace the toggle's inner HTML with a fresh placeholder so lucide will render it.
+    themeToggle.innerHTML = `<i data-lucide="${iconName}"></i>`;
+    // Recreate lucide icons so the new placeholder is rendered immediately as an SVG.
+    lucide.createIcons();
+};
+
+// Initialize theme
+setTheme(getPreferredTheme());
+
+// Toggle theme
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+    }
+});
+
+// Initialize Lucide Icons
+lucide.createIcons();
+
+// Lazy-load and autoplay/pause project videos when in view
+(() => {
+  const lazyVideos = document.querySelectorAll('.project-image video[data-src]');
+  if (!('IntersectionObserver' in window) || lazyVideos.length === 0) return;
+
+  const onIntersection = (entries, observer) => {
+    entries.forEach((entry) => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        // If the video hasn't been loaded yet, create a source and load it
+        if (video.dataset.src) {
+          const src = document.createElement('source');
+          src.src = video.dataset.src;
+          src.type = 'video/mp4';
+          video.appendChild(src);
+          // ensure muted so autoplay is allowed
+          video.muted = true;
+          video.preload = 'metadata';
+          // load then try to play
+          video.load();
+          video.addEventListener('loadeddata', function _playOnce() {
+            video.play().catch(() => {});
+            video.removeEventListener('loadeddata', _playOnce);
+          });
+          // remove data-src to mark as loaded
+          delete video.dataset.src;
+        } else {
+          // already has source, try to play
+          video.play().catch(() => {});
+        }
+      } else {
+        // Pause videos when they're out of view to save bandwidth/CPU
+        video.pause();
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(onIntersection, { threshold: 0.5 });
+  lazyVideos.forEach((v) => observer.observe(v));
+})();
+
+// Intersection Observer for Skill Bars Animation
+const skillBars = document.querySelectorAll(".skill-progress");
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.style.width =
+                    entry.target.parentElement.dataset.progress;
+            }
+        });
+    },
+    { threshold: 0.5 }
+);
+
+skillBars.forEach((bar) => observer.observe(bar));
+
+// Smooth Scroll for Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+            // Close mobile menu if open
+            mobileNav.classList.remove("active");
+            menuIcon.setAttribute("data-lucide", "menu");
+            lucide.createIcons();
+        }
+    });
+});
+
+    </Script>
+  </body>
+</html>
